@@ -7,6 +7,19 @@ namespace mtm {
 
     template <typename T>
     class SortedList {
+
+    private:
+        struct Node {
+            T data;
+            Node* next;
+            Node(const T& value) : data(value), next(nullptr) {}
+        };
+        
+        Node* head;
+        int size;
+
+
+
     public:
         /**
          *
@@ -31,6 +44,90 @@ namespace mtm {
          * 11. filter - returns a new list with elements that satisfy a given condition
          * 12. apply - returns a new list with elements that were modified by an operation
          */
+        // Constructor
+        SortedList() : head(nullptr), size(0) {}
+        
+        // Copy constructor
+        SortedList(const SortedList& other) : head(nullptr), size(0) {
+            Node* current = other.head;
+            while (current != nullptr) {
+                insert(current->data);
+                current = current->next;
+            }
+        }
+        
+        // Assignment operator
+        SortedList& operator=(const SortedList& other) {
+            if (this != &other) {
+                SortedList temp(other);
+                Node* tempHead = head;
+                head = temp.head;
+                temp.head = tempHead;
+                size = temp.size;
+            }
+            return *this;
+        }
+        
+        // Destructor
+        ~SortedList() {
+            while (head != nullptr) {
+                Node* temp = head;
+                head = head->next;
+                delete temp;
+            }
+        }
+        
+        // Insert new element
+        void insert(const T& value) {
+            Node* newNode = new Node(value);
+            if (!head || value > head->data) {
+                newNode->next = head;
+                head = newNode;
+                size++;
+                return;
+            }
+            
+            Node* current = head;
+            while (current->next && !(value > current->next->data)) {
+                current = current->next;
+            }
+            newNode->next = current->next;
+            current->next = newNode;
+            size++;
+        }
+        
+        // Remove element at iterator position
+        void remove(ConstIterator iter) {
+            if (!head) {
+                throw std::out_of_range("List is empty");
+            }
+            
+            Node* current = head;
+            Node* prev = nullptr;
+            
+            while (current != nullptr && current != iter.current) {
+                prev = current;
+                current = current->next;
+            }
+            
+            if (current == nullptr) {
+                throw std::out_of_range("Iterator not found in list");
+            }
+            
+            if (prev == nullptr) {
+                head = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            
+            delete current;
+            size--;
+        }
+        
+        // Return list length
+        int length() const {
+            return size;
+        }
 
     };
 

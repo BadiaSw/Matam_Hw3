@@ -44,6 +44,10 @@ namespace mtm {
          * 11. filter - returns a new list with elements that satisfy a given condition
          * 12. apply - returns a new list with elements that were modified by an operation
          */
+
+
+
+        class ConstIterator;
         // Constructor
         SortedList() : head(nullptr), size(0) {}
         
@@ -77,9 +81,11 @@ namespace mtm {
             }
         }
         
-        // Insert new element
+         // Inserts new element maintaining sorted order (largest to smallest)
         void insert(const T& value) {
             Node* newNode = new Node(value);
+            
+            // If empty list or new value is larger than head
             if (!head || value > head->data) {
                 newNode->next = head;
                 head = newNode;
@@ -87,16 +93,19 @@ namespace mtm {
                 return;
             }
             
+            // Find insertion point - stop when we find a smaller value
             Node* current = head;
             while (current->next && !(value > current->next->data)) {
                 current = current->next;
             }
+            
+            // Insert the new node
             newNode->next = current->next;
             current->next = newNode;
             size++;
         }
         
-        // Remove element at iterator position
+        // Removes element at iterator position
         void remove(ConstIterator iter) {
             if (!head) {
                 throw std::out_of_range("List is empty");
@@ -105,6 +114,7 @@ namespace mtm {
             Node* current = head;
             Node* prev = nullptr;
             
+            // Find node to remove
             while (current != nullptr && current != iter.current) {
                 prev = current;
                 current = current->next;
@@ -114,9 +124,10 @@ namespace mtm {
                 throw std::out_of_range("Iterator not found in list");
             }
             
-            if (prev == nullptr) {
+            // Remove the node
+            if (prev == nullptr) {  // Removing head
                 head = current->next;
-            } else {
+            } else {                // Removing non-head node
                 prev->next = current->next;
             }
             
@@ -129,10 +140,95 @@ namespace mtm {
             return size;
         }
 
+template<typename Predicate>
+        SortedList filter(Predicate pred) const {
+            SortedList filtered;
+            Node* current = head;
+            while (current != nullptr) {
+                if (pred(current->data)) {
+                    filtered.insert(current->data);
+                }
+                current = current->next;
+            }
+            return filtered;
+        }
+        
+        // Apply operation to all elements
+        template<typename Operation>
+        SortedList apply(Operation op) const {
+            SortedList result;
+            Node* current = head;
+            while (current != nullptr) {
+                result.insert(op(current->data));
+                current = current->next;
+            }
+            return result;
+        }
+        
+        // Iterator methods
+        ConstIterator begin() const {
+            return ConstIterator(head);
+        }
+        
+        ConstIterator end() const {
+    if (!head) {
+        return ConstIterator(nullptr);
+    }
+    Node* current = this.head;
+    while (current->next) {
+        current = current->next;
+    }
+    return ConstIterator(current->next);  
+}
     };
 
     template <class T>
     class SortedList<T>::ConstIterator {
+         friend class SortedList;
+    private:
+        Node* current;
+        
+    public:
+        // Constructor
+        ConstIterator(Node* ptr) : current(ptr) {}
+        
+        // Copy constructor
+        ConstIterator(const ConstIterator& other) : current(other.current) {}
+        
+        // Assignment operator
+        ConstIterator& operator=(const ConstIterator& other) {
+            if (this != &other) {
+                current = other.current;
+            }
+            return *this;
+        }
+        
+        // Destructor
+        ~ConstIterator() = default;
+        
+        // Dereference operator
+        const T& operator*() const {
+            if (!current) {
+                throw std::out_of_range("Iterator points to null");
+            }
+            return current->data;
+        }
+        
+        // Prefix increment operator
+        ConstIterator& operator++() {
+            if (!current) {
+                throw std::out_of_range("Cannot increment end iterator");
+            }
+            current = current->next;
+            return *this;
+        }
+        
+        // Inequality operator
+        bool operator!=(const ConstIterator& other) const {
+            return current != other.current;
+        }
+    };
+
     /**
      * the class should support the following public interface:
      * if needed, use =defualt / =delete
@@ -149,6 +245,5 @@ namespace mtm {
      * 7. operator!= - returns true if the iterator points to a different element
      *
      */
-    };
 }
 

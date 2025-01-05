@@ -21,31 +21,6 @@ namespace mtm {
 
 
     public:
-        /**
-         *
-         * the class should support the following public interface:
-         * if needed, use =defualt / =delete
-         *
-         * constructors and destructor:
-         * 1. SortedList() - creates an empty list.
-         * 2. copy constructor
-         * 3. operator= - assignment operator
-         * 4. ~SortedList() - destructor
-         *
-         * iterator:
-         * 5. class ConstIterator;
-         * 6. begin method
-         * 7. end method
-         *
-         * functions:
-         * 8. insert - inserts a new element to the list
-         * 9. remove - removes an element from the list
-         * 10. length - returns the number of elements in the list
-         * 11. filter - returns a new list with elements that satisfy a given condition
-         * 12. apply - returns a new list with elements that were modified by an operation
-         */
-
-
 
         class ConstIterator;
         // Constructor
@@ -53,12 +28,42 @@ namespace mtm {
         
         // Copy constructor
         SortedList(const SortedList& other) : head(nullptr), size(0) {
-            Node* current = other.head;
-            while (current != nullptr) {
-                insert(current->data);
-                current = current->next;
+    try {
+        // Create a temporary list
+        Node* temp_head = nullptr;
+        int temp_size = 0;
+        
+        // Copy elements from other list
+        Node* current = other.head;
+        Node* temp_tail = nullptr;
+        
+        while (current != nullptr) {
+            Node* new_node = new Node(current->data);
+            
+            if (!temp_head) {
+                temp_head = new_node;
+            } else {
+                temp_tail->next = new_node;
             }
+            temp_tail = new_node;
+            temp_size++;
+            current = current->next;
         }
+        
+        // If we got here, all allocations succeeded
+        head = temp_head;
+        size = temp_size;
+    } catch (...) {
+        // Clean up any nodes we created before the exception
+        Node* current = head;
+        while (current != nullptr) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+        throw; // Re-throw the exception
+    }
+}
         
         // Assignment operator
         SortedList& operator=(const SortedList& other) {
@@ -83,57 +88,66 @@ namespace mtm {
         
          // Inserts new element maintaining sorted order (largest to smallest)
         void insert(const T& value) {
-            Node* newNode = new Node(value);
-            
-            // If empty list or new value is larger than head
-            if (!head || value > head->data) {
-                newNode->next = head;
-                head = newNode;
-                size++;
-                return;
-            }
-            
-            // Find insertion point - stop when we find a smaller value
-            Node* current = head;
-            while (current->next && !(value > current->next->data)) {
-                current = current->next;
-            }
-            
-            // Insert the new node
-            newNode->next = current->next;
-            current->next = newNode;
+            try {
+        Node* newNode = new Node(value);
+        
+        // If empty list or new value is larger than head
+        if (!head || value > head->data) {
+            newNode->next = head;
+            head = newNode;
             size++;
+            return;
         }
+        
+        // Find insertion point
+        Node* current = head;
+        while (current->next && !(value > current->next->data)) {
+            current = current->next;
+        }
+        
+        newNode->next = current->next;
+        current->next = newNode;
+        size++;
+    } catch (const std::bad_alloc& e) {
+        throw std::runtime_error("Memory allocation failed during insert");
+    }
+}
+           
         
         // Removes element at iterator position
         void remove(ConstIterator iter) {
-            if (!head) {
-                throw std::out_of_range("List is empty");
-            }
-            
-            Node* current = head;
-            Node* prev = nullptr;
-            
-            // Find node to remove
-            while (current != nullptr && current != iter.current) {
-                prev = current;
-                current = current->next;
-            }
-            
-            if (current == nullptr) {
-                throw std::out_of_range("Iterator not found in list");
-            }
-            
-            // Remove the node
-            if (prev == nullptr) {  // Removing head
-                head = current->next;
-            } else {                // Removing non-head node
-                prev->next = current->next;
-            }
-            
-            delete current;
-            size--;
-        }
+           if (!head) {
+        throw std::out_of_range("List is empty");
+    }
+    
+    // If it's an end iterator, just return
+    if (!iter.current) {
+        return;
+    }
+    
+    Node* current = head;
+    Node* prev = nullptr;
+    
+    while (current != nullptr && current != iter.current) {
+        prev = current;
+        current = current->next;
+    }
+    
+    if (current == nullptr) {
+        throw std::out_of_range("Iterator not found in list");
+    }
+    
+    if (prev == nullptr) {
+        head = current->next;
+    } else {
+        prev->next = current->next;
+    }
+    
+    delete current;
+    size--;
+}
+
+        
         
         // Return list length
         int length() const {
@@ -174,7 +188,7 @@ template<typename Predicate>
     if (!head) {
         return ConstIterator(nullptr);
     }
-    Node* current = this.head;
+    Node* current = this->head;
     while (current->next) {
         current = current->next;
     }
@@ -215,13 +229,15 @@ template<typename Predicate>
         }
         
         // Prefix increment operator
-        ConstIterator& operator++() {
-            if (!current) {
-                throw std::out_of_range("Cannot increment end iterator");
-            }
-            current = current->next;
-            return *this;
-        }
+       
+           ConstIterator& operator++() {
+     if (!current) {
+        throw std::out_of_range("Cannot increment end iterator");
+    }
+    current = current->next;
+    return *this;
+}
+           
         
         // Inequality operator
         bool operator!=(const ConstIterator& other) const {

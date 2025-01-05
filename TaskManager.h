@@ -1,8 +1,8 @@
 
 #pragma once
-
+#include "Person.h"
 #include "Task.h"
-
+#include "SortedList.h"
 /**
  * @brief Class managing tasks assigned to multiple persons.
  */
@@ -14,6 +14,10 @@ private:
     static const int MAX_PERSONS = 10;
 
     // Note - Additional private fields and methods can be added if needed.
+    Person* m_employees[MAX_PERSONS];  // Array of pointers to employees (size is fixed to 10)
+    int m_employeeCount;            // Counter for the number of employees
+    int m_nextTaskId;               // Counter for task IDs
+    Person* findPerson(const string &name) const;
 
 public:
     /**
@@ -23,6 +27,7 @@ public:
      */
     TaskManager();
 
+    ~TaskManager();
     /**
      * @brief Deleted copy constructor to prevent copying of TaskManager objects.
      */

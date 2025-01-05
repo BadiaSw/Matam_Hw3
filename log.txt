@@ -1,0 +1,196 @@
+* commit d065d097061970abe55e39103c17322c94a9eb03
+| Author: Badiasw <badeaswaed412@gmail.com>
+| Date:   Sun Jan 5 22:39:01 2025 +0200
+| 
+|     clean branch
+| 
+|  MatamGenericTester |   1 -
+|  README.md          |   6 -
+|  TaskManager        | Bin 74432 -> 0 bytes
+|  TaskManagerTest    | Bin 348976 -> 0 bytes
+|  TechnionMatam      |   1 -
+|  test2.out          |   2 -
+|  test3.out          |  29 ----
+|  test4.out          |   2 -
+|  test5.out          |   2 -
+|  test6.out          |  14 --
+|  test_results.html  | 408 ---------------------------------------------------
+|  11 files changed, 465 deletions(-)
+| 
+* commit 32c0946c40da9d809482eed2145067fd43a9b3ae
+| Author: Badea <102144260+BadiaSw@users.noreply.github.com>
+| Date:   Sun Jan 5 22:35:56 2025 +0200
+| 
+|     Delete test1.out
+| 
+|  test1.out | 2 --
+|  1 file changed, 2 deletions(-)
+| 
+* commit 87c9249a872bd1e3fc33dbf7d1af6bab62c173b1
+| Author: Badea <102144260+BadiaSw@users.noreply.github.com>
+| Date:   Sun Jan 5 22:35:46 2025 +0200
+| 
+|     Delete compile_and_test.sh
+| 
+|  compile_and_test.sh | 6 ------
+|  1 file changed, 6 deletions(-)
+| 
+* commit adb0eb1a5e133fb362f8711cdcff35da8b2a77b9
+| Author: Badea <102144260+BadiaSw@users.noreply.github.com>
+| Date:   Sun Jan 5 22:35:39 2025 +0200
+| 
+|     Delete add-testing-tools.sh
+| 
+|  add-testing-tools.sh | 2 --
+|  1 file changed, 2 deletions(-)
+| 
+* commit 139bdec54a2391f499e172e5223c0f334b0301dc
+| Author: Badea <102144260+BadiaSw@users.noreply.github.com>
+| Date:   Sun Jan 5 22:35:23 2025 +0200
+| 
+|     Delete .gitmodules
+| 
+|  .gitmodules | 6 ------
+|  1 file changed, 6 deletions(-)
+| 
+* commit 70a6348ae490b6c420ccf74216076c53322dc5d0
+| Author: Badea <102144260+BadiaSw@users.noreply.github.com>
+| Date:   Sun Jan 5 22:35:11 2025 +0200
+| 
+|     Delete tests directory
+| 
+|  tests/test1.expected |  3 ---
+|  tests/test2.expected |  3 ---
+|  tests/test3.expected | 30 ------------------------------
+|  tests/test4.expected |  3 ---
+|  tests/test5.expected |  3 ---
+|  tests/test6.expected | 15 ---------------
+|  6 files changed, 57 deletions(-)
+| 
+* commit 86d20eabaff65b129ae15f7c525648cc5598a6da
+| Author: Badea <102144260+BadiaSw@users.noreply.github.com>
+| Date:   Sun Jan 5 22:34:44 2025 +0200
+| 
+|     Delete .vscode directory
+| 
+|  .vscode/tasks.json | 28 ----------------------------
+|  1 file changed, 28 deletions(-)
+| 
+* commit 1c21dc3d5c342388675b336c00167f5eb4d06d15
+| Author: Badiasw <badeaswaed412@gmail.com>
+| Date:   Sun Jan 5 22:33:03 2025 +0200
+| 
+|     add dry
+| 
+|  .gitmodules          |   6 +
+|  MatamGenericTester   |   1 +
+|  TaskManagerTest      | Bin 0 -> 348976 bytes
+|  TechnionMatam        |   1 +
+|  add-testing-tools.sh |   2 +
+|  compile_and_test.sh  |   6 +
+|  dry.pdf              | Bin 0 -> 69831 bytes
+|  test_results.html    | 408 +++++++++++++++++++++++++++++++++++++++++++++++++
+|  8 files changed, 424 insertions(+)
+| 
+* commit 6a6e8c03211bc36967d4f75af000456b609e67e0
+| Author: Badiasw <badeaswaed412@gmail.com>
+| Date:   Sun Jan 5 16:58:38 2025 +0200
+| 
+|     bug fixes
+| 
+|  SortedList.h | 182 +++++++++++++++++++++++++++++++--------------------------
+|  TaskManager  | Bin 0 -> 74432 bytes
+|  test1.out    |   2 +
+|  test2.out    |   2 +
+|  test3.out    |  29 +++++++++
+|  test4.out    |   2 +
+|  test5.out    |   2 +
+|  test6.out    |  14 +++++
+|  8 files changed, 150 insertions(+), 83 deletions(-)
+| 
+* commit e5970c94b35ef5955658658d192693307b0279d6
+| Author: lama.kh4 <lamakh1>
+| Date:   Sun Jan 5 16:01:43 2025 +0200
+| 
+|     task manager
+| 
+|  TaskManager.cpp | 167 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+|  TaskManager.h   |   9 ++-
+|  2 files changed, 174 insertions(+), 2 deletions(-)
+| 
+* commit 72fe222c227155c8a0d97583d558471a688d6ae7
+| Author: Badiasw <badeaswaed412@gmail.com>
+| Date:   Fri Jan 3 14:21:08 2025 +0200
+| 
+|     First class done
+| 
+|  .vscode/tasks.json |  28 ++++++++++++++
+|  SortedList.h       | 105 ++++++++++++++++++++++++++++++++++++++++++++++++---
+|  2 files changed, 128 insertions(+), 5 deletions(-)
+| 
+* commit 9b34ed2fac2bfad0eed659c259635b2a7cdc84a2
+| Author: Badiasw <badeaswaed412@gmail.com>
+| Date:   Tue Dec 31 00:16:10 2024 +0200
+| 
+|     start
+| 
+|  SortedList.h | 97 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 97 insertions(+)
+| 
+* commit a3481f8f37f2fbd59d824d4020f19d434ec6f9a5
+| Author: Ron Raphaeli <102682845+ronraphaeli@users.noreply.github.com>
+| Date:   Sun Dec 22 10:44:54 2024 +0200
+| 
+|     Update Task.cpp
+| 
+|  Task.cpp | 5 ++++-
+|  1 file changed, 4 insertions(+), 1 deletion(-)
+| 
+* commit ef076db7052b54a8918ae43ebe390b6a7a629909
+| Author: Ron Raphaeli <102682845+ronraphaeli@users.noreply.github.com>
+| Date:   Fri Dec 20 17:02:30 2024 +0200
+| 
+|     Update README.md
+| 
+|  README.md | 5 ++---
+|  1 file changed, 2 insertions(+), 3 deletions(-)
+| 
+* commit ef8a3ce100827ef3fead32a4927a3566fe3d0d5d
+| Author: Ron Raphaeli <102682845+ronraphaeli@users.noreply.github.com>
+| Date:   Fri Dec 20 17:01:08 2024 +0200
+| 
+|     Add files via upload
+| 
+|  Person.cpp           |  51 +++++
+|  Person.h             |  79 ++++++++
+|  README.md            |  13 +-
+|  SortedList.h         |  57 ++++++
+|  Task.cpp             |  83 ++++++++
+|  Task.h               | 115 +++++++++++
+|  TaskManager.h        |  75 +++++++
+|  main.cpp             | 531 +++++++++++++++++++++++++++++++++++++++++++++++++
+|  tests/test1.expected |   3 +
+|  tests/test2.expected |   3 +
+|  tests/test3.expected |  30 +++
+|  tests/test4.expected |   3 +
+|  tests/test5.expected |   3 +
+|  tests/test6.expected |  15 ++
+|  14 files changed, 1055 insertions(+), 6 deletions(-)
+| 
+* commit 5bdbf99b46b6f1558a47c5533aefc209c37e23d4
+| Author: Ron Raphaeli <102682845+ronraphaeli@users.noreply.github.com>
+| Date:   Fri Dec 20 16:57:29 2024 +0200
+| 
+|     Update README.md
+| 
+|  README.md | 7 ++++++-
+|  1 file changed, 6 insertions(+), 1 deletion(-)
+| 
+* commit 6c999dc9a584fbf8c3a296c357c16141db7b5abe
+  Author: Ron Raphaeli <102682845+ronraphaeli@users.noreply.github.com>
+  Date:   Fri Dec 20 16:57:09 2024 +0200
+  
+      Initial commit
+  
+   README.md | 1 +
+   1 file changed, 1 insertion(+)
